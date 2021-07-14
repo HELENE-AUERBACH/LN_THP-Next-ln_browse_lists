@@ -1,14 +1,20 @@
 function isKEqualsToSumOfTwoNumbers(numbersArray, k) {
   console.log(`\nPour la liste "[${numbersArray}]" et la valeur ${k},`);
-  for (let i = 0; i < numbersArray.length - 1; i++) {
-    for (let j = i + 1; j < numbersArray.length; j++) {
-      if (numbersArray[i] + numbersArray[j] === k) {
-        console.log(`comme nous trouvons "${numbersArray[i]} + ${numbersArray[j]} === ${k}",`);
-        return true;
-      }
+  let isFound = false;
+  let maxIndex = numbersArray.length - 1;
+  let remainsArray = [];
+  let index = 0;
+  while (index <= maxIndex && !isFound) {
+    let newValue = numbersArray[index];
+    if (index > 0 && remainsArray.includes(newValue)) {
+      isFound = true;
+      console.log(`comme nous trouvons "${k - newValue} + ${newValue} === ${k}",`);
+      break;
     }
+    remainsArray.push(k - newValue);
+    index++;
   }
-  return false;
+  return isFound;
 }
 
 console.log(`le résultat du test est : ${isKEqualsToSumOfTwoNumbers([10, 15, 3, 7], 17)}`);
